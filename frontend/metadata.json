@@ -1,0 +1,6 @@
+{
+  "name": "Aegis Ledger - AI Agent Governance & Audit Explorer",
+  "description": "Cryptographically verified AI agent decision governance platform with audit ledger explorer, deep-dive decision inspector, and compliance analytics.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

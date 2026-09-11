@@ -1,0 +1,30 @@
+# Python virtual environment
+venv/
+backend/venv/
+env/
+.env
+.env.local
+
+# Node.js dependencies & builds
+node_modules/
+frontend/node_modules/
+dist/
+frontend/dist/
+
+# Byte-compiled / cache files
+__pycache__/
+backend/__pycache__/
+*.py[cod]
+*$py.class
+
+# Database files
+*.db
+*.sqlite3
+backend/argus.db
+argus.db
+
+# IDEs & OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
