@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🛡️ ARGUS-LEDGER
+# ARGUS-LEDGER
 ### **The Smart Security Guard & Tamper-Proof Black Box for AI Agents**
 
 [![License: Apache 2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
@@ -16,7 +16,7 @@
 
 ---
 
-## 💡 What is ARGUS-Ledger? (In Simple Words)
+## What is ARGUS-Ledger? (In Simple Words)
 
 Imagine your company hires autonomous AI assistants to run operations—transferring money, paying bills, and managing servers. 
 
@@ -25,24 +25,24 @@ Imagine your company hires autonomous AI assistants to run operations—transfer
 
 ---
 
-## ⚙️ How It Works (in 4 Simple Steps)
+## How It Works (in 4 Simple Steps)
 
 ```
 [ AI Agent asks to do something ]
              │
              ▼
- 1. 🔍 CHECK SAFETY ──────── Is the amount too high? Is the device recognized?
+ 1. CHECK SAFETY ──────────── Is the amount too high? Is the device recognized?
              │
              ▼
- 2. 🚦 MAKE A DECISION ───── ✅ ALLOW (Safe)
-                             ⚠️ REVIEW (Needs a human manager's sign-off)
-                             🛑 BLOCK (Danger or hacker attack detected)
+ 2. MAKE A DECISION ───────── ALLOW (Safe)
+                              REVIEW (Needs a human manager's sign-off)
+                              BLOCK (Danger or hacker attack detected)
              │
              ▼
- 3. 💬 EXPLAIN IN ENGLISH ── Writes a 2-sentence human summary + 5-step breakdown
+ 3. EXPLAIN IN ENGLISH ────── Writes a 2-sentence human summary + 5-step breakdown
              │
              ▼
- 4. 🔒 LOCK THE RECORD ───── Seals it in a tamper-proof chain (like a blockchain receipt)
+ 4. LOCK THE RECORD ───────── Seals it in a tamper-proof chain (like a blockchain receipt)
 ```
 
 1. **Check Safety:** When an AI asks to do something (e.g., pay an invoice or grant admin access), ARGUS inspects the details—who asked, how much money is involved, and which device they are using.
@@ -55,19 +55,19 @@ Imagine your company hires autonomous AI assistants to run operations—transfer
 
 ---
 
-## ✨ Key Features Anyone Can Use
+## Key Features Anyone Can Use
 
-* 🟢 **Plain-English AI Explanations:** Explains *why* an action was approved or blocked in simple sentences, not confusing math.
-* 🛑 **Automatic Circuit Breaker:** Stops hacker tricks (like prompt injections and unauthorized data exports) before any harm is done.
-* 🔒 **Tamper-Evident History:** Just like a digital paper trail, past records cannot be edited or deleted without being caught.
-* 🚨 **"Test a Hack" Button:** A built-in demo button lets you simulate a hacker modifying the database. You'll see the system instantly flag the altered record in red.
-* 🧪 **Live Decision Studio:** Try typing custom transactions (e.g., "Send $100,000 to account X") and watch how ARGUS analyzes the risk in real time.
-* 📊 **Executive Dashboard:** Visual charts showing how many actions were approved, how many needed human review, and which safety rules were triggered most.
-* 📄 **One-Click Export:** Download official audit reports as a spreadsheet (CSV) or secure digital file (JSON).
+* **Plain-English AI Explanations:** Explains *why* an action was approved or blocked in simple sentences, not confusing math.
+* **Automatic Circuit Breaker:** Stops hacker tricks (like prompt injections and unauthorized data exports) before any harm is done.
+* **Tamper-Evident History:** Just like a digital paper trail, past records cannot be edited or deleted without being caught.
+* **"Test a Hack" Button:** A built-in demo button lets you simulate a hacker modifying the database. You'll see the system instantly flag the altered record in red.
+* **Live Decision Studio:** Try typing custom transactions (e.g., "Send $100,000 to account X") and watch how ARGUS analyzes the risk in real time.
+* **Executive Dashboard:** Visual charts showing how many actions were approved, how many needed human review, and which safety rules were triggered most.
+* **One-Click Export:** Download official audit reports as a spreadsheet (CSV) or secure digital file (JSON).
 
 ---
 
-## 🛠️ Technology Stack (What Powers It)
+## Technology Stack (What Powers It)
 
 ARGUS is built with modern, reliable, and industry-standard tools:
 
@@ -81,7 +81,7 @@ ARGUS is built with modern, reliable, and industry-standard tools:
 
 ---
 
-## 🚀 How to Run It (Quick Start in 2 Minutes)
+## How to Run It (Quick Start in 2 Minutes)
 
 ### Prerequisites
 Make sure you have installed on your computer:
@@ -121,7 +121,7 @@ npm run dev
 
 ---
 
-## 🎮 Try It Out! (Cool Things to Test)
+## Try It Out! (Cool Things to Test)
 
 1. **Simulate a Hacker Attack:**
    * Go to the top of the dashboard.
@@ -131,8 +131,8 @@ npm run dev
 
 2. **Test Custom Prompts:**
    * Click on **"Live Decision Studio"** in the left menu.
-   * Pick **"Normal Settlement"** ➡️ Watch it get approved.
-   * Pick **"Prompt Injection Attack"** ➡️ Watch ARGUS catch the threat keyword and block it!
+   * Pick **"Normal Settlement"** -> Watch it get approved.
+   * Pick **"Prompt Injection Attack"** -> Watch ARGUS catch the threat keyword and block it!
 
 3. **Read the Decision Inspector:**
    * Click **"Decision Inspector"** in the left menu.
@@ -140,5 +140,5 @@ npm run dev
 
 ---
 
-## 📜 License
+## License
 This project is open-source and licensed under the **Apache License 2.0**.

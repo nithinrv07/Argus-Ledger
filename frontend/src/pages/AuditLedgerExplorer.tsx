@@ -45,17 +45,14 @@ export const AuditLedgerExplorer: React.FC<AuditLedgerExplorerProps> = ({
   const [currentPage, setCurrentPage] = useState(1);
   const pageSize = 8;
 
-  // Extract all unique policies across decisions for filter dropdown
   const uniquePolicies = useMemo(() => {
     const set = new Set<string>();
     decisions.forEach((d) => d.policiesTriggered.forEach((p) => set.add(p)));
     return Array.from(set);
   }, [decisions]);
 
-  // Filter & sort logic
   const filteredDecisions = useMemo(() => {
     return decisions.filter((d) => {
-      // Search term
       if (searchTerm.trim()) {
         const query = searchTerm.toLowerCase();
         const matchesId = d.id.toLowerCase().includes(query);
@@ -68,21 +65,18 @@ export const AuditLedgerExplorer: React.FC<AuditLedgerExplorerProps> = ({
         }
       }
 
-      // Policy filter
       if (selectedPolicy !== 'ALL') {
         if (!d.policiesTriggered.includes(selectedPolicy)) {
           return false;
         }
       }
 
-      // Execution mode filter
       if (selectedMode !== 'ALL') {
         if (d.executionMode !== selectedMode) {
           return false;
         }
       }
 
-      // Outcome filter
       if (selectedOutcome !== 'ALL') {
         if (d.outcome !== selectedOutcome) {
           return false;
@@ -140,7 +134,6 @@ export const AuditLedgerExplorer: React.FC<AuditLedgerExplorerProps> = ({
 
   return (
     <div id="audit-ledger-explorer-page" className="space-y-6 animate-in fade-in duration-300">
-      {/* Page Header & Export Utility */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white p-6 rounded-3xl shadow-sm border border-emerald-950/5">
         <div>
           <div className="flex items-center gap-2">
@@ -156,7 +149,6 @@ export const AuditLedgerExplorer: React.FC<AuditLedgerExplorerProps> = ({
           </p>
         </div>
 
-        {/* Export Utility Buttons */}
         <div className="flex items-center gap-2.5 shrink-0">
           <button
             onClick={() => exportSignedLedgerJSON(filteredDecisions)}
@@ -180,10 +172,8 @@ export const AuditLedgerExplorer: React.FC<AuditLedgerExplorerProps> = ({
         </div>
       </div>
 
-      {/* Advanced Filters Panel */}
       <div className="bg-white rounded-3xl p-5 shadow-sm border border-emerald-950/5 space-y-4">
         <div className="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-3">
-          {/* Real-time Search */}
           <div className="relative flex-1">
             <Search className="absolute left-3.5 top-3 w-4 h-4 text-slate-400" />
             <input
@@ -207,7 +197,6 @@ export const AuditLedgerExplorer: React.FC<AuditLedgerExplorerProps> = ({
             )}
           </div>
 
-          {/* Quick Stats Pill */}
           <div className="flex items-center gap-3 text-xs text-slate-500 font-medium px-2">
             <span>
               Showing <strong className="text-slate-800">{filteredDecisions.length}</strong> of{' '}
@@ -216,9 +205,7 @@ export const AuditLedgerExplorer: React.FC<AuditLedgerExplorerProps> = ({
           </div>
         </div>
 
-        {/* Filter Dropdown Controls */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 pt-2 border-t border-slate-100">
-          {/* Policy Filter */}
           <div>
             <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1">
               Compliance Policy Triggered
@@ -240,7 +227,6 @@ export const AuditLedgerExplorer: React.FC<AuditLedgerExplorerProps> = ({
             </select>
           </div>
 
-          {/* Execution Mode Filter */}
           <div>
             <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1">
               Execution Mode
@@ -259,7 +245,6 @@ export const AuditLedgerExplorer: React.FC<AuditLedgerExplorerProps> = ({
             </select>
           </div>
 
-          {/* Decision Outcome Filter */}
           <div>
             <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1">
               Decision Outcome
@@ -279,7 +264,6 @@ export const AuditLedgerExplorer: React.FC<AuditLedgerExplorerProps> = ({
             </select>
           </div>
 
-          {/* Date Range Preset */}
           <div>
             <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1">
               Date Range
@@ -298,7 +282,6 @@ export const AuditLedgerExplorer: React.FC<AuditLedgerExplorerProps> = ({
         </div>
       </div>
 
-      {/* Chronological Searchable Table */}
       <div className="bg-white rounded-3xl shadow-sm border border-emerald-950/5 overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse" id="audit-ledger-master-table">
@@ -359,12 +342,10 @@ export const AuditLedgerExplorer: React.FC<AuditLedgerExplorerProps> = ({
                       key={decision.id}
                       className="hover:bg-[#f8fbf9] transition-colors group"
                     >
-                      {/* Block Height */}
                       <td className="py-3.5 px-4 font-mono font-bold text-slate-900">
                         #{decision.blockHeight}
                       </td>
 
-                      {/* Timestamp */}
                       <td className="py-3.5 px-4 text-slate-500 whitespace-nowrap">
                         {new Date(decision.timestamp).toLocaleTimeString([], {
                           hour: '2-digit',
@@ -376,12 +357,10 @@ export const AuditLedgerExplorer: React.FC<AuditLedgerExplorerProps> = ({
                         </span>
                       </td>
 
-                      {/* Transaction ID */}
                       <td className="py-3.5 px-4 font-mono font-bold text-[#265e53]">
                         {decision.id}
                       </td>
 
-                      {/* Agent Identity */}
                       <td className="py-3.5 px-4">
                         <div className="font-semibold text-slate-900">
                           {decision.agentName}
@@ -391,14 +370,12 @@ export const AuditLedgerExplorer: React.FC<AuditLedgerExplorerProps> = ({
                         </div>
                       </td>
 
-                      {/* Action Type */}
                       <td className="py-3.5 px-4">
                         <span className="font-medium text-slate-800 bg-slate-100 px-2 py-0.5 rounded-md text-[11px] font-mono">
                           {decision.actionType}
                         </span>
                       </td>
 
-                      {/* Execution Mode */}
                       <td className="py-3.5 px-4 whitespace-nowrap">
                         <span
                           className={`text-[11px] font-semibold px-2 py-0.5 rounded-full ${
@@ -411,7 +388,6 @@ export const AuditLedgerExplorer: React.FC<AuditLedgerExplorerProps> = ({
                         </span>
                       </td>
 
-                      {/* Outcome Badge */}
                       <td className="py-3.5 px-4">
                         <span
                           className={`text-[11px] font-bold px-2.5 py-0.5 rounded-full uppercase tracking-wider ${
@@ -426,7 +402,6 @@ export const AuditLedgerExplorer: React.FC<AuditLedgerExplorerProps> = ({
                         </span>
                       </td>
 
-                      {/* Risk Score */}
                       <td className="py-3.5 px-4">
                         <div className="flex items-center gap-1.5">
                           <span
@@ -446,7 +421,6 @@ export const AuditLedgerExplorer: React.FC<AuditLedgerExplorerProps> = ({
                         </div>
                       </td>
 
-                      {/* Cryptographic Hash */}
                       <td className="py-3.5 px-4 font-mono text-[11px]">
                         <div className="flex items-center gap-1 text-slate-600">
                           <span title={decision.blockHash}>
@@ -466,7 +440,6 @@ export const AuditLedgerExplorer: React.FC<AuditLedgerExplorerProps> = ({
                         </div>
                       </td>
 
-                      {/* Inspect & Delete Buttons */}
                       <td className="py-3.5 px-4 text-right">
                         <div className="flex items-center justify-end gap-1.5 ml-auto">
                           <button
@@ -502,7 +475,6 @@ export const AuditLedgerExplorer: React.FC<AuditLedgerExplorerProps> = ({
           </table>
         </div>
 
-        {/* Pagination Bar */}
         <div className="p-4 bg-[#f8fbf9] border-t border-slate-100 flex items-center justify-between text-xs text-slate-500">
           <div>
             Page <strong className="text-slate-800">{currentPage}</strong> of{' '}
