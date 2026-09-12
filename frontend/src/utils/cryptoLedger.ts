@@ -1,8 +1,5 @@
 import { LedgerDecision, LedgerIntegrityStatus } from '../types/ledger';
 
-/**
- * Deterministic hash generator for cryptographic simulations
- */
 export function simpleSha256(data: string): string {
   let hash = 0;
   for (let i = 0; i < data.length; i++) {
@@ -12,7 +9,6 @@ export function simpleSha256(data: string): string {
   }
   const hexPart = Math.abs(hash).toString(16).padStart(8, '0');
   
-  // Mix in deterministic pseudo-SHA256 representation
   let mix1 = 0x811c9dc5;
   for (let i = 0; i < data.length; i++) {
     mix1 ^= data.charCodeAt(i);
@@ -23,10 +19,6 @@ export function simpleSha256(data: string): string {
   return `0x${hexPart}${hexPart2}${(hash ^ mix1).toString(16).padStart(8, '0')}`.padEnd(66, 'f').substring(0, 66);
 }
 
-/**
- * Verifies the integrity of the cryptographic hash chain
- * Simulated endpoint: /verify-ledger/
- */
 export function verifyLedgerChain(chain: LedgerDecision[]): LedgerIntegrityStatus {
   if (!chain || chain.length === 0) {
     return {
@@ -43,7 +35,6 @@ export function verifyLedgerChain(chain: LedgerDecision[]): LedgerIntegrityStatu
     };
   }
 
-  // Sort chain by block height
   const sorted = [...chain].sort((a, b) => a.blockHeight - b.blockHeight);
   let brokenIndex: number | null = null;
   let tamperCount = 0;
@@ -51,14 +42,12 @@ export function verifyLedgerChain(chain: LedgerDecision[]): LedgerIntegrityStatu
   for (let i = 0; i < sorted.length; i++) {
     const current = sorted[i];
 
-    // Check if explicitly marked as tampered
     if (current.tampered) {
       brokenIndex = i;
       tamperCount++;
       break;
     }
 
-    // Check parent hash connection (except genesis)
     if (i > 0) {
       const prev = sorted[i - 1];
       if (current.parentBlockHash !== prev.blockHash) {
@@ -85,9 +74,6 @@ export function verifyLedgerChain(chain: LedgerDecision[]): LedgerIntegrityStatu
   };
 }
 
-/**
- * Export signed ledger as formatted JSON with cryptographic envelope
- */
 export function exportSignedLedgerJSON(decisions: LedgerDecision[]): void {
   const payload = {
     metadata: {
@@ -118,9 +104,6 @@ export function exportSignedLedgerJSON(decisions: LedgerDecision[]): void {
   URL.revokeObjectURL(url);
 }
 
-/**
- * Export ledger as standard CSV format for spreadsheets & external compliance tools
- */
 export function exportLedgerCSV(decisions: LedgerDecision[]): void {
   const headers = [
     'Block Height',

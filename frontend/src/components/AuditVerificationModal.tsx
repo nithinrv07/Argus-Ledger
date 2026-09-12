@@ -70,7 +70,6 @@ export const AuditVerificationModal: React.FC<AuditVerificationModalProps> = ({
         id="audit-verification-modal-content"
         className="bg-white rounded-3xl max-w-3xl w-full shadow-2xl border border-slate-100 overflow-hidden my-8 animate-in fade-in zoom-in-95 duration-200"
       >
-        {/* Modal Header */}
         <div
           className={`p-6 border-b flex items-center justify-between ${
             status.isValid ? 'bg-[#f4f9f7] border-emerald-100' : 'bg-rose-50 border-rose-100'
@@ -112,9 +111,7 @@ export const AuditVerificationModal: React.FC<AuditVerificationModalProps> = ({
           </button>
         </div>
 
-        {/* Modal Body */}
         <div className="p-6 space-y-6 max-h-[75vh] overflow-y-auto">
-          {/* Verification Pipeline Checks */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-200/80 flex items-start gap-3">
               <div className="mt-0.5">
@@ -185,7 +182,6 @@ export const AuditVerificationModal: React.FC<AuditVerificationModalProps> = ({
             </div>
           </div>
 
-          {/* Block Chain Visual Sequence */}
           <div>
             <div className="flex items-center justify-between mb-3">
               <span className="text-xs font-bold uppercase tracking-wider text-slate-500">
@@ -267,7 +263,6 @@ export const AuditVerificationModal: React.FC<AuditVerificationModalProps> = ({
           </div>
         </div>
 
-        {/* Modal Footer */}
         <div className="p-4 bg-slate-50 border-t border-slate-100 flex items-center justify-between">
           <div className="text-xs text-slate-500">
             Last verified: {new Date(status.lastAuditTimestamp).toLocaleTimeString()}

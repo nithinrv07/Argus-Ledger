@@ -56,7 +56,6 @@ export const Sidebar: React.FC<SidebarProps> = ({
       id="aegis-sidebar"
       className="fixed left-0 top-0 bottom-0 w-20 md:w-24 bg-[#265e53] flex flex-col items-center py-6 z-30 transition-all duration-300 shadow-xl select-none"
     >
-      {/* Brand Logo - Styled geometric mark referencing the screenshot */}
       <div className="mb-8 flex flex-col items-center">
         <button
           onClick={() => setActiveTab('overview')}
@@ -71,7 +70,6 @@ export const Sidebar: React.FC<SidebarProps> = ({
         </span>
       </div>
 
-      {/* Primary Navigation Stack */}
       <nav className="flex-1 flex flex-col items-center gap-3 w-full px-3">
         {navItems.map((item) => {
           const Icon = item.icon;
@@ -95,12 +93,10 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 }`}
               />
 
-              {/* Active Indicator Pip */}
               {isActive && (
                 <span className="absolute -left-1 w-1.5 h-6 bg-[#f5b842] rounded-r-full shadow-sm" />
               )}
 
-              {/* Tooltip on Desktop */}
               <div className="absolute left-full ml-3 px-3 py-1.5 bg-slate-900/90 text-white text-xs font-medium rounded-lg opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity whitespace-nowrap z-50 shadow-lg backdrop-blur-sm">
                 {item.label}
               </div>
@@ -109,7 +105,6 @@ export const Sidebar: React.FC<SidebarProps> = ({
         })}
       </nav>
 
-      {/* Bottom Utility Icons */}
       <div className="flex flex-col items-center gap-3 w-full px-3 pt-4 border-t border-emerald-700/50">
         <button
           onClick={() => setActiveTab('analytics')}

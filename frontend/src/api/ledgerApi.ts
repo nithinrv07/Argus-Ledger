@@ -15,9 +15,6 @@ export interface DecisionSimulationRequest {
 }
 
 export const ledgerApi = {
-  /**
-   * Fetch all ledger decisions from the backend
-   */
   async getLedger(): Promise<{ data: LedgerDecision[]; isLive: boolean }> {
     try {
       const res = await fetch(`${API_BASE_URL}/api/ledger`, {
@@ -32,9 +29,6 @@ export const ledgerApi = {
     }
   },
 
-  /**
-   * Perform cryptographic chain verification on the backend
-   */
   async verifyLedger(localChain: LedgerDecision[]): Promise<{ status: LedgerIntegrityStatus; isLive: boolean }> {
     try {
       const res = await fetch(`${API_BASE_URL}/api/verify-ledger`, {
@@ -49,9 +43,6 @@ export const ledgerApi = {
     }
   },
 
-  /**
-   * Submit an autonomous decision request for AI evaluation and cryptographic sealing
-   */
   async decideAndLog(request: DecisionSimulationRequest): Promise<{ decision: LedgerDecision; isLive: boolean }> {
     try {
       const res = await fetch(`${API_BASE_URL}/api/decide-and-log`, {
@@ -68,9 +59,6 @@ export const ledgerApi = {
     }
   },
 
-  /**
-   * Simulate adversary tampering on the backend database block
-   */
   async simulateTamper(): Promise<boolean> {
     try {
       const res = await fetch(`${API_BASE_URL}/api/simulate-tamper`, { method: 'POST' });
@@ -80,9 +68,6 @@ export const ledgerApi = {
     }
   },
 
-  /**
-   * Restore valid cryptographic block on the backend
-   */
   async restoreLedger(): Promise<boolean> {
     try {
       const res = await fetch(`${API_BASE_URL}/api/restore-ledger`, { method: 'POST' });
@@ -92,9 +77,6 @@ export const ledgerApi = {
     }
   },
 
-  /**
-   * Delete an individual decision report from the ledger
-   */
   async deleteReport(id: string): Promise<boolean> {
     try {
       const res = await fetch(`${API_BASE_URL}/api/ledger/${encodeURIComponent(id)}`, {
@@ -107,9 +89,6 @@ export const ledgerApi = {
     }
   },
 
-  /**
-   * Clear all decision reports from the ledger
-   */
   async clearAllReports(): Promise<boolean> {
     try {
       const res = await fetch(`${API_BASE_URL}/api/ledger`, {

@@ -12,15 +12,15 @@ export interface ReasoningStep {
 }
 
 export interface LedgerDecision {
-  id: string; // e.g. "DEC-2026-8941"
-  timestamp: string; // ISO string e.g. "2026-09-09T22:30:15Z"
-  agentId: string; // e.g. "Agent-Apollo-01"
-  agentName: string; // e.g. "Apollo Treasury Auditor"
-  actionType: string; // e.g. "FUND_DISBURSEMENT"
+  id: string;
+  timestamp: string;
+  agentId: string;
+  agentName: string;
+  actionType: string;
   executionMode: ExecutionMode;
   outcome: DecisionOutcome;
-  riskScore: number; // 0 - 100
-  confidenceScore: number; // 0.0 - 1.0 (e.g. 0.978)
+  riskScore: number;
+  confidenceScore: number;
   latencyMs: number;
   taskCompleted: boolean;
   policiesTriggered: string[];
@@ -96,7 +96,7 @@ export interface PolicyTriggerStat {
   policyName: string;
   category: 'SECURITY' | 'FINANCIAL' | 'PRIVACY' | 'BEHAVIORAL';
   triggerCount: number;
-  blockRate: number; // percentage
+  blockRate: number;
   trend: string;
   description: string;
 }

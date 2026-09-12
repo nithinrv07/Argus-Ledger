@@ -224,7 +224,6 @@ export const SimulateDecisionModal: React.FC<SimulateDecisionModalProps> = ({
         id="simulate-decision-modal-content"
         className="bg-white rounded-3xl max-w-xl w-full shadow-2xl border border-slate-100 overflow-hidden my-8 animate-in fade-in zoom-in-95 duration-200"
       >
-        {/* Header */}
         <div className="p-6 border-b border-slate-100 bg-gradient-to-r from-[#f4f9f7] to-[#eaf4f0] flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-2xl bg-[#265e53] text-white flex items-center justify-center shadow-md">
@@ -246,9 +245,7 @@ export const SimulateDecisionModal: React.FC<SimulateDecisionModalProps> = ({
           </button>
         </div>
 
-        {/* Body */}
         <div className="p-6 space-y-5">
-          {/* Quick Presets */}
           <div>
             <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">
               Select Test Scenario Preset
@@ -304,7 +301,6 @@ export const SimulateDecisionModal: React.FC<SimulateDecisionModalProps> = ({
             </div>
           </div>
 
-          {/* Form Fields */}
           <div className="space-y-3.5">
             <div>
               <label className="block text-xs font-bold text-slate-700 mb-1">Target Autonomous Agent</label>
@@ -363,7 +359,6 @@ export const SimulateDecisionModal: React.FC<SimulateDecisionModalProps> = ({
             )}
           </div>
 
-          {/* Cryptographic Link Preview */}
           <div className="p-3 bg-slate-50 rounded-2xl border border-slate-200/80 text-[11px] text-slate-600 space-y-1 font-mono">
             <div className="flex items-center justify-between">
               <span className="text-slate-400">Target Block Height:</span>
@@ -376,7 +371,6 @@ export const SimulateDecisionModal: React.FC<SimulateDecisionModalProps> = ({
           </div>
         </div>
 
-        {/* Footer */}
         <div className="p-4 bg-slate-50 border-t border-slate-100 flex items-center justify-end gap-2">
           <button
             onClick={onClose}

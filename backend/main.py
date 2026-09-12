@@ -19,7 +19,6 @@ app = FastAPI(
     version="2.0.0"
 )
 
-# Enable CORS for frontend Vite/React (ports 3000, 5173, etc.)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -59,10 +58,6 @@ def format_block_for_frontend(block: LedgerBlockModel) -> Dict[str, Any]:
 
 def calculate_sha256(data: str) -> str:
     return "0x" + hashlib.sha256(data.encode()).hexdigest()
-
-# ==========================================
-# ARGUS PLATFORM API (Frontend Integration)
-# ==========================================
 
 @app.get("/")
 def root():
@@ -141,7 +136,6 @@ def verify_ledger_api(db: Session = Depends(get_db)):
 
 @app.post("/api/decide-and-log")
 def decide_and_log_action(payload: Dict[str, Any], db: Session = Depends(get_db)):
-    # 1. Parse incoming request from frontend
     agent_id = payload.get("agent") or payload.get("agent_id") or "Agent-Apollo-01"
     action_type = payload.get("actionType") or payload.get("action_type") or "FUND_DISBURSEMENT"
     intent = payload.get("intent") or "Automated execution event"
@@ -158,18 +152,14 @@ def decide_and_log_action(payload: Dict[str, Any], db: Session = Depends(get_db)
         "session_tokens_age_sec": int(payload.get("sessionTokensAgeSec", 18)),
     }
 
-    # 2. Evaluate decision via AI model
     decision = decision_engine.evaluate(request_context)
 
-    # 3. Generate transparent step-by-step reasoning via XAI explainer
     xai_output = explainer_engine.generate_explanation(request_context, decision)
 
-    # 4. Fetch latest block to maintain hash chain
     latest_block = db.query(LedgerBlockModel).order_by(LedgerBlockModel.block_height.desc()).first()
     new_height = (latest_block.block_height + 1) if latest_block else 1
     parent_hash = latest_block.block_hash if latest_block else ("0x" + "0" * 64)
 
-    # 5. Generate cryptographic block hash and digital signature
     timestamp_iso = datetime.datetime.utcnow().isoformat() + "Z"
     new_id = f"DEC-2026-{new_height:04d}"
     
@@ -239,7 +229,6 @@ def decide_and_log_action(payload: Dict[str, Any], db: Session = Depends(get_db)
 
     db.add(new_block)
 
-    # Also record to legacy AuditLogModel for backward compatibility
     legacy_log = AuditLogModel(
         log_id=new_id,
         timestamp=datetime.datetime.utcnow(),
@@ -290,7 +279,6 @@ def delete_ledger_block(decision_id: str, db: Session = Depends(get_db)):
     db.delete(target_block)
     db.commit()
 
-    # Re-chain remaining blocks to maintain height ordering and cryptographic hash consensus
     remaining_blocks = db.query(LedgerBlockModel).order_by(LedgerBlockModel.block_height.asc()).all()
     prev_hash = "0x" + "0" * 64
     for idx, b in enumerate(remaining_blocks):
@@ -312,10 +300,6 @@ def clear_all_ledger_blocks(db: Session = Depends(get_db)):
     db.query(LedgerBlockModel).delete()
     db.commit()
     return {"status": "SUCCESS", "message": "All reports deleted from ledger"}
-
-# ==========================================
-# LEGACY AUDIT LOG API (Preserved Endpoints)
-# ==========================================
 
 def calculate_hash(log_data: dict, previous_hash: str) -> str:
     block_string = json.dumps({

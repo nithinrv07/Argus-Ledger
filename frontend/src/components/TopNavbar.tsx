@@ -33,7 +33,6 @@ export const TopNavbar: React.FC<TopNavbarProps> = ({
       id="aegis-top-navbar"
       className="sticky top-0 z-20 bg-[#f0f6f4]/95 backdrop-blur-md px-6 py-4 flex items-center justify-between gap-4 border-b border-emerald-900/5 transition-all"
     >
-      {/* Left Search Bar */}
       <div className="flex-1 max-w-xl">
         <div className="relative flex items-center">
           <Search className="absolute left-3.5 w-4 h-4 text-slate-400 pointer-events-none" />
@@ -52,9 +51,7 @@ export const TopNavbar: React.FC<TopNavbarProps> = ({
         </div>
       </div>
 
-      {/* Right Controls & Profile */}
       <div className="flex items-center gap-2 sm:gap-3">
-        {/* Backend Connectivity Status Pill */}
         <div 
           id="badge-backend-status"
           className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-white border border-slate-200 shadow-sm"
@@ -66,9 +63,6 @@ export const TopNavbar: React.FC<TopNavbarProps> = ({
           </span>
         </div>
 
-
-
-        {/* Refresh Sync Button */}
         <button
           onClick={onRefresh}
           id="btn-refresh-feed"
@@ -80,7 +74,6 @@ export const TopNavbar: React.FC<TopNavbarProps> = ({
           <RefreshCw className="w-4 h-4" />
         </button>
 
-        {/* Settings Button */}
         <button
           onClick={() => alert('Governance Ledger Settings: Cryptographic Suite Ed25519-SHA256, Merkle Patricia Tree v2.1, Zero-Knowledge Oracle v4.')}
           id="btn-top-settings"
@@ -90,7 +83,6 @@ export const TopNavbar: React.FC<TopNavbarProps> = ({
           <Settings className="w-4 h-4" />
         </button>
 
-        {/* Notifications */}
         <button
           onClick={() => alert('Active Audit Alerts: 0 Critical, 2 Human-in-the-Loop Reviews Pending.')}
           id="btn-top-notifications"
@@ -101,7 +93,6 @@ export const TopNavbar: React.FC<TopNavbarProps> = ({
           <span className="absolute top-2 right-2 w-2 h-2 rounded-full bg-[#f5b842]" />
         </button>
 
-        {/* User Profile Pill - Matching "Michael Smith" from reference design */}
         <div
           id="user-profile-pill"
           className="flex items-center gap-2.5 pl-2 pr-3 py-1 bg-white rounded-full border border-slate-200/80 shadow-sm cursor-pointer hover:border-emerald-300 transition-colors"

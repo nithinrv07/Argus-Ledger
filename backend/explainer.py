@@ -62,7 +62,6 @@ class ArgusExplainer:
         raw_policies = decision_result.get("policies_triggered", [])
         threat_signals = decision_result.get("threat_signals", [])
 
-        # Map to friendly names
         agent_friendly = FRIENDLY_AGENTS.get(agent_id, agent_id)
         action_friendly = FRIENDLY_ACTIONS.get(action_type, action_type.replace("_", " ").title())
         action_phrase = get_action_phrase(action_friendly)
@@ -71,7 +70,6 @@ class ArgusExplainer:
             FRIENDLY_POLICIES.get(p, p) for p in raw_policies
         ]
 
-        # Determine primary plain-language trigger reason
         if amount_usd > 100000:
             trigger_reason = f"the requested amount (${amount_usd:,.2f}) is over the $100,000 limit for automatic approvals"
         elif amount_usd > 50000:
@@ -87,9 +85,6 @@ class ArgusExplainer:
         else:
             trigger_reason = "this sensitive action requires human verification"
 
-        # -------------------------------------------------------------
-        # 1. Plain-English Human-Readable Narrative
-        # -------------------------------------------------------------
         if outcome == "ALLOW":
             narrative = (
                 f"Approved: {agent_friendly} requested {action_phrase}{amount_str}. "
@@ -102,17 +97,13 @@ class ArgusExplainer:
                 f"Because {trigger_reason}, ARGUS paused automatic execution. "
                 f"A manager must review and sign off before this action is carried out."
             )
-        else: # BLOCK
+        else:
             narrative = (
                 f"Blocked for Safety: {agent_friendly} attempted {action_phrase}{amount_str}. "
                 f"This action was stopped immediately because {trigger_reason}. "
                 f"ARGUS blocked the request to protect company systems and notified the security team."
             )
 
-        # -------------------------------------------------------------
-        # 2. 5-Phase Clear Reasoning Chain
-        # -------------------------------------------------------------
-        # Step 1: What was requested?
         step1 = {
             "step": 1,
             "phase": "Request Summary",
@@ -121,7 +112,6 @@ class ArgusExplainer:
             "status": "PASSED"
         }
 
-        # Step 2: Who asked & are they trusted?
         if device_trust >= 80 and mfa_verified:
             step2_detail = f"Login verified. {agent_friendly} is using an authorized company device (Trust: {device_trust:g}/100) with two-factor authentication confirmed."
             step2_status = "PASSED"
@@ -140,7 +130,6 @@ class ArgusExplainer:
             "status": step2_status
         }
 
-        # Step 3: Red flags / warning signs
         if outcome == "ALLOW":
             step3_detail = f"No red flags found. Risk is very low ({risk_score:g}%). The AI system is {confidence * 100:.1f}% confident this request is safe."
             step3_status = "PASSED"
@@ -159,7 +148,6 @@ class ArgusExplainer:
             "status": step3_status
         }
 
-        # Step 4: Company rule check
         if outcome == "ALLOW":
             step4_detail = f"Follows all rules. Matches: {friendly_policies[0] if friendly_policies else 'Standard routine operations'}."
             step4_status = "PASSED"
@@ -178,7 +166,6 @@ class ArgusExplainer:
             "status": step4_status
         }
 
-        # Step 5: Final action
         if outcome == "ALLOW":
             step5_detail = "Approved & Completed: The action was executed immediately and permanently recorded in the audit ledger."
             step5_status = "PASSED"

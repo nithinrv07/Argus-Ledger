@@ -21,7 +21,6 @@ export const ComplianceAnalytics: React.FC<ComplianceAnalyticsProps> = ({ decisi
   const [selectedCategory, setSelectedCategory] = useState<string>('ALL');
   const [selectedAgentId, setSelectedAgentId] = useState<string>('Agent-Apollo-01');
 
-  // Dynamically compute policy stats from live decisions
   const dynamicPolicyStats: PolicyTriggerStat[] = useMemo(() => {
     const counts: Record<string, { count: number; blockCount: number }> = {};
     decisions.forEach((d) => {
@@ -54,7 +53,6 @@ export const ComplianceAnalytics: React.FC<ComplianceAnalyticsProps> = ({ decisi
     });
   }, [decisions]);
 
-  // Dynamically compute agent fleet metrics from live decisions
   const dynamicAgentMetrics: AgentMetrics[] = useMemo(() => {
     const agentsMap: Record<string, {
       agentId: string;
@@ -62,7 +60,6 @@ export const ComplianceAnalytics: React.FC<ComplianceAnalyticsProps> = ({ decisi
       decisions: LedgerDecision[];
     }> = {};
 
-    // Standard list of ARGUS agents
     const standardAgents = [
       { id: 'Agent-Apollo-01', name: 'Apollo Treasury Auditor', role: 'Treasury & Settlement Guard' },
       { id: 'Agent-Hermes-04', name: 'Hermes Execution Engine', role: 'Privileged Access Controller' },
@@ -115,7 +112,6 @@ export const ComplianceAnalytics: React.FC<ComplianceAnalyticsProps> = ({ decisi
     });
   }, [decisions]);
 
-  // Filtered policy stats
   const filteredPolicies = dynamicPolicyStats.filter((p) => {
     if (selectedCategory === 'ALL') return true;
     return p.category === selectedCategory;
@@ -123,14 +119,12 @@ export const ComplianceAnalytics: React.FC<ComplianceAnalyticsProps> = ({ decisi
 
   const maxTriggerCount = Math.max(...dynamicPolicyStats.map((p) => p.triggerCount), 1);
 
-  // Selected agent
   const currentAgent =
     dynamicAgentMetrics.find((a) => a.agentId === selectedAgentId) ||
     dynamicAgentMetrics[0];
 
   return (
     <div id="compliance-analytics-page" className="space-y-6 animate-in fade-in duration-300">
-      {/* Page Header */}
       <div className="bg-white p-6 rounded-3xl shadow-sm border border-emerald-950/5 flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2">
@@ -152,7 +146,6 @@ export const ComplianceAnalytics: React.FC<ComplianceAnalyticsProps> = ({ decisi
         </div>
       </div>
 
-      {/* Row 1: Trigger Frequency Breakdown & Top Tripped Rules */}
       <div className="bg-white rounded-3xl p-6 shadow-sm border border-emerald-950/5 space-y-5">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div>
@@ -165,7 +158,6 @@ export const ComplianceAnalytics: React.FC<ComplianceAnalyticsProps> = ({ decisi
             </p>
           </div>
 
-          {/* Category Filter Pills */}
           <div className="flex items-center gap-1.5 bg-slate-100 p-1 rounded-2xl text-xs">
             {['ALL', 'SECURITY', 'FINANCIAL', 'PRIVACY', 'BEHAVIORAL'].map((cat) => (
               <button
@@ -183,7 +175,6 @@ export const ComplianceAnalytics: React.FC<ComplianceAnalyticsProps> = ({ decisi
           </div>
         </div>
 
-        {/* Visual Frequency Breakdown Chart */}
         {filteredPolicies.length === 0 ? (
           <div className="p-8 text-center text-slate-400 text-xs bg-slate-50 rounded-2xl border border-dashed border-slate-200">
             No policies triggered in the ledger yet. Run actions in the Live Decision Studio to generate policy analytics.
@@ -244,9 +235,7 @@ export const ComplianceAnalytics: React.FC<ComplianceAnalyticsProps> = ({ decisi
         )}
       </div>
 
-      {/* Row 2: Agent Fleet Performance Comparison */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-        {/* Agent Selector List */}
         <div className="lg:col-span-4 bg-white rounded-3xl p-6 shadow-sm border border-emerald-950/5 space-y-3">
           <h3 className="text-base font-bold text-slate-900 tracking-tight flex items-center gap-2 mb-2">
             <Cpu className="w-5 h-5 text-[#265e53]" />
@@ -281,7 +270,6 @@ export const ComplianceAnalytics: React.FC<ComplianceAnalyticsProps> = ({ decisi
           </div>
         </div>
 
-        {/* Deep Agent Analytics */}
         <div className="lg:col-span-8 bg-white rounded-3xl p-6 shadow-sm border border-emerald-950/5 space-y-6">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-slate-100 gap-2">
             <div>

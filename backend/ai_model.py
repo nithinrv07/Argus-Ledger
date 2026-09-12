@@ -40,7 +40,6 @@ class ArgusDecisionEngine:
 
         base_risk = 5.0
 
-        # 1. Threat Keyword & Adversarial Delimiter Analysis
         matched_critical = [kw for kw in CRITICAL_THREAT_KEYWORDS if kw in intent]
         matched_elevation = [kw for kw in SUSPICIOUS_ELEVATION_KEYWORDS if kw in intent]
 
@@ -54,7 +53,6 @@ class ArgusDecisionEngine:
             base_risk += 45.0
             policies_triggered.append("Privileged IAM Escalation Guardrail")
 
-        # 2. Financial Threshold Checks
         if amount_usd > 100000:
             threat_signals.append(f"High-value threshold exceeded: ${amount_usd:,.2f} > $100k")
             base_risk += 50.0
@@ -66,23 +64,19 @@ class ArgusDecisionEngine:
         elif amount_usd > 0:
             policies_triggered.append("Normal Velocity Profile")
 
-        # 3. Action Type Sensitivity
         if action_type in ["CREDENTIAL_ROTATION", "EXPORT_SYSTEM_DATA"]:
             if not matched_critical:
                 base_risk += 20.0
         elif action_type in ["PRIVILEGED_IAM_GRANT", "POLICY_OVERRIDE"]:
             base_risk += 30.0
 
-        # 4. Device Trust Score
         if device_trust < 70:
             base_risk += 25.0
             threat_signals.append(f"Sub-optimal device trust score: {device_trust}/100")
             policies_triggered.append("Zero-Trust Device Attestation")
 
-        # Normalize Risk Score (0 - 100)
         risk_score = min(max(round(base_risk, 1), 2.0), 99.0)
 
-        # Determine Outcome and Execution Mode
         if risk_score >= 75.0:
             outcome = "BLOCK"
             execution_mode = "AUTONOMOUS"

@@ -35,12 +35,10 @@ export const IntegrityBanner: React.FC<IntegrityBannerProps> = ({
           : 'bg-gradient-to-r from-rose-900 via-rose-800 to-amber-900 text-white border-rose-500/50 animate-pulse'
       }`}
     >
-      {/* Subtle Background Pattern */}
       <div className="absolute -right-10 -bottom-10 w-48 h-48 rounded-full bg-white/5 pointer-events-none blur-2xl" />
       <div className="absolute right-32 top-0 w-32 h-32 rounded-full bg-emerald-300/5 pointer-events-none blur-xl" />
 
       <div className="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-4">
-        {/* Left Status Group */}
         <div className="flex items-start sm:items-center gap-4">
           <div
             className={`w-12 h-12 rounded-2xl flex items-center justify-center shrink-0 shadow-md ${
@@ -99,7 +97,6 @@ export const IntegrityBanner: React.FC<IntegrityBannerProps> = ({
           </div>
         </div>
 
-        {/* Right Action & Metadata Group */}
         <div className="flex flex-wrap items-center gap-2.5 pt-2 lg:pt-0 shrink-0">
           <div className="hidden xl:flex flex-col text-right pr-3 border-r border-white/15">
             <span className="text-[11px] text-emerald-200/70 uppercase tracking-wider font-mono">
@@ -110,7 +107,6 @@ export const IntegrityBanner: React.FC<IntegrityBannerProps> = ({
             </span>
           </div>
 
-          {/* Real-Time Verify Button */}
           <button
             onClick={onVerifyClick}
             id="btn-trigger-ledger-audit"
@@ -120,7 +116,6 @@ export const IntegrityBanner: React.FC<IntegrityBannerProps> = ({
             <span>Verify Proof Tree</span>
           </button>
 
-          {/* Tamper Simulation Toggle */}
           <button
             onClick={onToggleTamper}
             id="btn-tamper-simulation-toggle"
