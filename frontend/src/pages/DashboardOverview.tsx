@@ -50,7 +50,6 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({
   const [profitTimeframe, setProfitTimeframe] = useState<'Day' | 'Week' | 'Month'>('Week');
   const [copiedKey, setCopiedKey] = useState(false);
 
-  // Compute live System KPI metrics
   const totalDecisions = decisions.length;
   const autonomousCount = decisions.filter((d) => d.executionMode === 'AUTONOMOUS').length;
   const hitlCount = decisions.filter((d) => d.executionMode === 'HITL').length;
@@ -61,7 +60,6 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({
     ? ((decisions.reduce((acc, curr) => acc + curr.confidenceScore, 0) / decisions.length) * 100).toFixed(1)
     : '0.0';
 
-  // 5 most recent decisions for feed
   const recentFeed = decisions.slice(0, 5);
 
   const handleCopyKey = () => {
@@ -72,7 +70,6 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({
 
   return (
     <div id="dashboard-overview-page" className="space-y-6 animate-in fade-in duration-300">
-      {/* Integrity Status Banner tied to /verify-ledger/ */}
       <IntegrityBanner
         status={integrityStatus}
         onVerifyClick={onOpenVerifyModal}
@@ -81,7 +78,6 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({
         totalDecisionsCount={totalDecisions}
       />
 
-      {/* Interactive Decision Studio CTA Banner */}
       <div className="bg-gradient-to-r from-[#265e53] to-[#183d35] rounded-3xl p-5 sm:p-6 text-white shadow-md flex flex-col sm:flex-row sm:items-center justify-between gap-4 border border-emerald-800/40">
         <div className="flex items-center gap-4">
           <div className="w-12 h-12 rounded-2xl bg-white/10 flex items-center justify-center border border-white/20 shadow-inner shrink-0">
@@ -111,9 +107,7 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({
         </button>
       </div>
 
-      {/* Row 1: Active Card & Quick Actions + Profit/Confidence Velocity Card (matching top row of reference image) */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-        {/* Left 7 cols: "My cards" style Card Vault & Actions */}
         <div className="lg:col-span-7 bg-white rounded-3xl p-6 shadow-sm border border-emerald-950/5">
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-lg font-bold text-slate-900 tracking-tight flex items-center gap-2">
@@ -134,9 +128,7 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-12 gap-5 items-center">
-            {/* Visual Credit Card matching reference design */}
             <div className="md:col-span-7 relative overflow-hidden rounded-2xl p-5 bg-gradient-to-br from-[#2a6d5f] via-[#215a4e] to-[#1a493f] text-white shadow-md shadow-emerald-900/10">
-              {/* Subtle wave texture SVG */}
               <div className="absolute inset-0 opacity-15 pointer-events-none">
                 <svg className="w-full h-full" viewBox="0 0 400 240" fill="none">
                   <path
@@ -193,7 +185,6 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({
               </div>
             </div>
 
-            {/* Quick Action Buttons (Matching Send / Receive / Withdraw style) */}
             <div className="md:col-span-5 grid grid-cols-3 gap-2.5">
               <button
                 onClick={onOpenVerifyModal}
@@ -231,7 +222,6 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({
           </div>
         </div>
 
-        {/* Right 5 cols: "Profit" style Model Confidence & Latency Velocity curve */}
         <div className="lg:col-span-5 bg-white rounded-3xl p-6 shadow-sm border border-emerald-950/5 flex flex-col justify-between">
           <div className="flex items-center justify-between mb-2">
             <div>
@@ -241,7 +231,6 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({
               <p className="text-xs text-slate-400">Continuous scoring trajectory</p>
             </div>
 
-            {/* Timeframe Switcher */}
             <div className="flex items-center bg-slate-100/80 p-0.5 rounded-full text-xs font-medium text-slate-600">
               {(['Day', 'Week', 'Month'] as const).map((t) => (
                 <button
@@ -259,7 +248,6 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({
             </div>
           </div>
 
-          {/* Sparkline curve matching the "Profit" visual spline */}
           <div className="relative h-28 my-2">
             <svg
               className="w-full h-full overflow-visible"
@@ -283,7 +271,6 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({
                 strokeWidth="2.5"
                 strokeLinecap="round"
               />
-              {/* Highlight point */}
               <circle cx="220" cy="30" r="4.5" fill="#265e53" className="animate-ping opacity-75" />
               <circle cx="220" cy="30" r="3.5" fill="#f5b842" stroke="white" strokeWidth="2" />
             </svg>
@@ -302,9 +289,7 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({
         </div>
       </div>
 
-      {/* Row 2: Three Cards matching Income / Expences / Spendings statistic */}
       <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
-        {/* Card 1: Total Decisions (Matching "Income" style with green wave) */}
         <div className="md:col-span-4 bg-white rounded-3xl p-6 shadow-sm border border-emerald-950/5 flex flex-col justify-between">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
@@ -316,7 +301,6 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({
             <span className="text-xs text-slate-400">Lifetime</span>
           </div>
 
-          {/* Smooth spline wave */}
           <div className="h-14 my-3">
             <svg
               className="w-full h-full overflow-visible"
@@ -353,7 +337,6 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({
           </div>
         </div>
 
-        {/* Card 2: Autonomous vs HITL Actions (Matching "Expences" style) */}
         <div className="md:col-span-4 bg-white rounded-3xl p-6 shadow-sm border border-emerald-950/5 flex flex-col justify-between">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
@@ -365,7 +348,6 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({
             <span className="text-xs text-slate-400">Execution Mode</span>
           </div>
 
-          {/* Smooth spline wave */}
           <div className="h-14 my-3">
             <svg
               className="w-full h-full overflow-visible"
@@ -407,7 +389,6 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({
           </div>
         </div>
 
-        {/* Card 3: Spendings statistic style -> Policy Evaluation Bars with warm yellow accents */}
         <div className="md:col-span-4 bg-white rounded-3xl p-6 shadow-sm border border-emerald-950/5 flex flex-col justify-between">
           <div className="flex items-center justify-between mb-2">
             <div className="flex items-center gap-2">
@@ -419,7 +400,6 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({
             <span className="text-xs text-slate-400 font-medium">Monthly</span>
           </div>
 
-          {/* Two-tone pill vertical bars with yellow accents directly referencing the screenshot */}
           <div className="flex items-end justify-between h-20 px-1 pt-3">
             {[
               { label: 'Jan', totalH: 70, yellowH: 30 },
@@ -458,9 +438,7 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({
         </div>
       </div>
 
-      {/* Row 3: Planning / Agent Governance + Recent Activity Feed + Assurance Card */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-        {/* Left 4 cols: Planning / Compliance Milestones (matching "Planning" card from image) */}
         <div className="lg:col-span-4 bg-white rounded-3xl p-6 shadow-sm border border-emerald-950/5 flex flex-col justify-between">
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-base font-bold text-slate-900 tracking-tight">
@@ -478,7 +456,6 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({
           </div>
 
           <div className="space-y-4">
-            {/* Goal 1 */}
             <div className="p-3.5 rounded-2xl bg-[#f4f9f7] border border-emerald-900/5">
               <div className="flex items-center justify-between text-xs font-bold text-slate-800 mb-1.5">
                 <span>ISO-42001 Hash Coverage</span>
@@ -489,7 +466,6 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({
               </div>
             </div>
 
-            {/* Goal 2 */}
             <div className="p-3.5 rounded-2xl bg-[#f4f9f7] border border-emerald-900/5">
               <div className="flex items-center justify-between text-xs font-bold text-slate-800 mb-1.5">
                 <span>Zero-Trust HITL Containment</span>
@@ -500,7 +476,6 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({
               </div>
             </div>
 
-            {/* Goal 3 */}
             <div className="p-3.5 rounded-2xl bg-[#f4f9f7] border border-emerald-900/5">
               <div className="flex items-center justify-between text-xs font-bold text-slate-800 mb-1.5">
                 <span>Average Decision Latency &lt; 150ms</span>
@@ -518,7 +493,6 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({
           </div>
         </div>
 
-        {/* Center 5 cols: Recent Activity Feed (matching "Latest transactions" from image) */}
         <div className="lg:col-span-5 bg-white rounded-3xl p-6 shadow-sm border border-emerald-950/5 flex flex-col justify-between">
           <div className="flex items-center justify-between mb-4">
             <div>
@@ -536,7 +510,6 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({
             </button>
           </div>
 
-          {/* 5 Decisions List with color-coded status badges */}
           <div className="space-y-3">
             {recentFeed.length === 0 ? (
               <div className="p-8 text-center text-slate-400 text-xs bg-slate-50 rounded-2xl border border-dashed border-slate-200 space-y-2">
@@ -567,7 +540,6 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({
                   className="flex items-center justify-between p-2.5 rounded-2xl hover:bg-[#f4f9f7] cursor-pointer transition-colors border border-transparent hover:border-emerald-100 group"
                 >
                   <div className="flex items-center gap-3">
-                    {/* Color dot indicator matching reference design */}
                     <div
                       className={`w-3 h-3 rounded-full shrink-0 ${
                         isAllow
@@ -622,7 +594,6 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({
           </div>
         </div>
 
-        {/* Right 3 cols: "Go premium" style Cryptographic Assurance Card */}
         <div className="lg:col-span-3 bg-gradient-to-br from-[#f8fcfa] to-[#edf7f4] rounded-3xl p-6 shadow-sm border border-emerald-900/10 flex flex-col justify-between">
           <div>
             <div className="flex items-center justify-between mb-3">

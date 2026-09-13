@@ -1,7 +1,3 @@
-/**
- * @license
- * SPDX-License-Identifier: Apache-2.0
- */
 
 import React, { useState, useMemo, useEffect } from 'react';
 import { Sidebar, TabType } from './components/Sidebar';
@@ -28,7 +24,6 @@ export default function App() {
   const [isTampered, setIsTampered] = useState<boolean>(false);
   const [isBackendConnected, setIsBackendConnected] = useState<boolean>(false);
 
-  // Initial Load from live FastAPI Backend
   useEffect(() => {
     async function loadBackendLedger() {
       try {
@@ -48,12 +43,10 @@ export default function App() {
     loadBackendLedger();
   }, []);
 
-  // Compute live verification status tied to /verify-ledger/
   const integrityStatus = useMemo(() => {
     return verifyLedgerChain(decisions);
   }, [decisions]);
 
-  // Handle Tamper Attack Simulation
   const handleToggleTamper = async () => {
     if (!isTampered) {
       if (isBackendConnected) {
@@ -84,13 +77,11 @@ export default function App() {
     }
   };
 
-  // Re-verify action
   const handleRefreshVerification = async () => {
     setIsVerifying(true);
     if (isBackendConnected) {
       try {
         const res = await ledgerApi.verifyLedger(decisions);
-        // Refresh ledger from backend to keep sync
         const ledgerRes = await ledgerApi.getLedger();
         if (ledgerRes.data && ledgerRes.data.length > 0) {
           setDecisions(ledgerRes.data);
@@ -104,13 +95,11 @@ export default function App() {
     }, 500);
   };
 
-  // Add new simulated decision
   const handleAddDecision = (newDecision: LedgerDecision) => {
     setDecisions((prev) => [newDecision, ...prev]);
     setSelectedDecisionId(newDecision.id);
   };
 
-  // Delete an individual decision report
   const handleDeleteDecision = async (id: string) => {
     if (isBackendConnected) {
       try {
@@ -130,15 +119,12 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-[#f0f6f4] text-slate-800 flex">
-      {/* Left Signature Curved Sidebar */}
       <Sidebar
         activeTab={activeTab}
         setActiveTab={setActiveTab}
       />
 
-      {/* Main Content Area (offset by sidebar width) */}
       <div className="flex-1 ml-20 md:ml-24 flex flex-col min-w-0 pb-16">
-        {/* Top Navigation Bar */}
         <TopNavbar
           searchQuery={globalSearchQuery}
           setSearchQuery={(query) => {
@@ -155,7 +141,6 @@ export default function App() {
           isBackendConnected={isBackendConnected}
         />
 
-        {/* Page Views Container */}
         <main className="p-4 sm:p-6 md:p-8 max-w-[1600px] w-full mx-auto">
           {activeTab === 'overview' && (
             <DashboardOverview
@@ -205,7 +190,6 @@ export default function App() {
         </main>
       </div>
 
-      {/* Verification Modal (/verify-ledger/) */}
       <AuditVerificationModal
         isOpen={isVerifyModalOpen}
         onClose={() => setIsVerifyModalOpen(false)}
@@ -214,7 +198,6 @@ export default function App() {
         onReverify={handleRefreshVerification}
       />
 
-      {/* Simulation Modal */}
       <SimulateDecisionModal
         isOpen={isSimulateModalOpen}
         onClose={() => setIsSimulateModalOpen(false)}

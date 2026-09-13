@@ -32,7 +32,6 @@ export const LiveDecisionStudio: React.FC<LiveDecisionStudioProps> = ({
   onNavigateToInspector,
   latestBlock,
 }) => {
-  // Form Inputs
   const [selectedPreset, setSelectedPreset] = useState<'custom' | 'normal' | 'review' | 'attack'>('normal');
   const [agent, setAgent] = useState<string>('Agent-Apollo-01');
   const [actionType, setActionType] = useState<string>('FUND_DISBURSEMENT');
@@ -44,7 +43,6 @@ export const LiveDecisionStudio: React.FC<LiveDecisionStudioProps> = ({
   const [deviceTrustScore, setDeviceTrustScore] = useState<number>(98);
   const [mfaVerified, setMfaVerified] = useState<boolean>(true);
 
-  // Execution State
   const [isEvaluating, setIsEvaluating] = useState<boolean>(false);
   const [currentResult, setCurrentResult] = useState<LedgerDecision | null>(null);
   const [copiedHash, setCopiedHash] = useState<boolean>(false);
@@ -127,7 +125,6 @@ export const LiveDecisionStudio: React.FC<LiveDecisionStudioProps> = ({
 
   return (
     <div id="live-decision-studio" className="space-y-6 animate-in fade-in duration-300">
-      {/* Page Title & Intro */}
       <div className="bg-white p-6 sm:p-8 rounded-3xl shadow-sm border border-emerald-950/5 flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-3">
@@ -145,7 +142,6 @@ export const LiveDecisionStudio: React.FC<LiveDecisionStudioProps> = ({
           </div>
         </div>
 
-        {/* Quick Scenario Preset Chips */}
         <div className="flex flex-wrap items-center gap-2">
           <span className="text-xs font-bold text-slate-400 uppercase tracking-wider mr-1">
             Presets:
@@ -186,9 +182,7 @@ export const LiveDecisionStudio: React.FC<LiveDecisionStudioProps> = ({
         </div>
       </div>
 
-      {/* Main Two-Column Layout */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-        {/* LEFT COLUMN: Input Form */}
         <div className="lg:col-span-5 bg-white p-6 sm:p-7 rounded-3xl shadow-sm border border-emerald-950/5 space-y-5">
           <div className="flex items-center justify-between pb-3 border-b border-slate-100">
             <div className="flex items-center gap-2">
@@ -203,7 +197,6 @@ export const LiveDecisionStudio: React.FC<LiveDecisionStudioProps> = ({
           </div>
 
           <form onSubmit={handleEvaluate} className="space-y-4">
-            {/* Autonomous Agent Selector */}
             <div>
               <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
                 Autonomous Agent
@@ -224,7 +217,6 @@ export const LiveDecisionStudio: React.FC<LiveDecisionStudioProps> = ({
               </select>
             </div>
 
-            {/* Action Type */}
             <div>
               <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
                 Action Type
@@ -246,7 +238,6 @@ export const LiveDecisionStudio: React.FC<LiveDecisionStudioProps> = ({
               </select>
             </div>
 
-            {/* Amount USD */}
             <div>
               <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
                 Transaction Amount ($ USD)
@@ -268,7 +259,6 @@ export const LiveDecisionStudio: React.FC<LiveDecisionStudioProps> = ({
               </div>
             </div>
 
-            {/* Action Intent / Prompt Description */}
             <div>
               <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
                 Action Intent & Context (Natural Language)
@@ -285,7 +275,6 @@ export const LiveDecisionStudio: React.FC<LiveDecisionStudioProps> = ({
               />
             </div>
 
-            {/* Target Resource */}
             <div>
               <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
                 Target Resource URI
@@ -301,7 +290,6 @@ export const LiveDecisionStudio: React.FC<LiveDecisionStudioProps> = ({
               />
             </div>
 
-            {/* Security Telemetry: Device Trust Slider & MFA */}
             <div className="p-4 bg-slate-50 rounded-2xl border border-slate-200/80 space-y-3">
               <div className="flex items-center justify-between">
                 <span className="text-xs font-bold text-slate-700 uppercase tracking-wider flex items-center gap-1.5">
@@ -350,7 +338,6 @@ export const LiveDecisionStudio: React.FC<LiveDecisionStudioProps> = ({
               </div>
             </div>
 
-            {/* Submit Button */}
             <button
               type="submit"
               disabled={isEvaluating}
@@ -373,10 +360,8 @@ export const LiveDecisionStudio: React.FC<LiveDecisionStudioProps> = ({
           </form>
         </div>
 
-        {/* RIGHT COLUMN: Real-Time Results & Explanations */}
         <div className="lg:col-span-7 space-y-6">
           {!currentResult ? (
-            /* Welcome / Empty State */
             <div className="bg-white p-8 sm:p-12 rounded-3xl shadow-sm border border-emerald-950/5 text-center space-y-4">
               <div className="w-16 h-16 rounded-3xl bg-emerald-50 text-[#265e53] flex items-center justify-center mx-auto border border-emerald-100">
                 <Cpu className="w-8 h-8 text-[#265e53]" />
@@ -399,9 +384,7 @@ export const LiveDecisionStudio: React.FC<LiveDecisionStudioProps> = ({
               </div>
             </div>
           ) : (
-            /* Result Panel */
             <div className="space-y-6 animate-in fade-in slide-in-from-bottom-2 duration-300">
-              {/* Outcome Header Banner */}
               <div
                 className={`p-6 rounded-3xl border shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4 ${
                   isAllow
@@ -447,7 +430,6 @@ export const LiveDecisionStudio: React.FC<LiveDecisionStudioProps> = ({
                   </div>
                 </div>
 
-                {/* Risk Score & Confidence Pill */}
                 <div className="flex items-center gap-3">
                   <div className="bg-white/90 backdrop-blur-sm px-4 py-2.5 rounded-2xl border border-black/5 text-right shadow-sm">
                     <div className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">
@@ -472,7 +454,6 @@ export const LiveDecisionStudio: React.FC<LiveDecisionStudioProps> = ({
                 </div>
               </div>
 
-              {/* Plain-English Human Readable Narrative */}
               <div className="bg-white p-6 rounded-3xl shadow-sm border border-emerald-950/5 space-y-4">
                 <div className="flex flex-wrap items-center justify-between gap-3">
                   <div className="flex items-center gap-2">
@@ -491,7 +472,6 @@ export const LiveDecisionStudio: React.FC<LiveDecisionStudioProps> = ({
                     </div>
                   </div>
 
-                  {/* Simple vs Technical View Toggle */}
                   <div className="flex items-center bg-slate-100 p-1 rounded-xl border border-slate-200/80 text-xs">
                     <button
                       type="button"
@@ -518,7 +498,6 @@ export const LiveDecisionStudio: React.FC<LiveDecisionStudioProps> = ({
                   </div>
                 </div>
 
-                {/* Explanation Card Content */}
                 <div
                   className={`p-4 sm:p-5 rounded-2xl border ${
                     isAllow
@@ -545,7 +524,6 @@ export const LiveDecisionStudio: React.FC<LiveDecisionStudioProps> = ({
                     {currentResult.humanReadableNarrative}
                   </p>
 
-                  {/* 3 Quick Takeaway Chips */}
                   {explanationMode === 'simple' && (
                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 pt-4 mt-3 border-t border-black/5 text-xs">
                       <div className="bg-white/90 p-3 rounded-xl border border-black/5 shadow-xs">
@@ -587,7 +565,6 @@ export const LiveDecisionStudio: React.FC<LiveDecisionStudioProps> = ({
                 </div>
               </div>
 
-              {/* Step-by-Step Reasoning Waterfall */}
               <div className="bg-white p-6 rounded-3xl shadow-sm border border-emerald-950/5 space-y-4">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
@@ -658,7 +635,6 @@ export const LiveDecisionStudio: React.FC<LiveDecisionStudioProps> = ({
                 </div>
               </div>
 
-              {/* Policies Triggered Badges */}
               <div className="bg-white p-6 rounded-3xl shadow-sm border border-emerald-950/5 space-y-3">
                 <div className="flex items-center justify-between">
                   <div>
@@ -691,7 +667,6 @@ export const LiveDecisionStudio: React.FC<LiveDecisionStudioProps> = ({
                 </div>
               </div>
 
-              {/* Cryptographic Ledger Block Seal */}
               <div className="bg-slate-900 text-white p-6 rounded-3xl shadow-md space-y-4">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
@@ -730,7 +705,6 @@ export const LiveDecisionStudio: React.FC<LiveDecisionStudioProps> = ({
                   </div>
                 </div>
 
-                {/* Inspect in Deep-Dive Inspector Button */}
                 <div className="flex items-center justify-end pt-2">
                   <button
                     type="button"

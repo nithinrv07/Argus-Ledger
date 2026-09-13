@@ -40,7 +40,6 @@ export const DecisionInspector: React.FC<DecisionInspectorProps> = ({
   const [copiedProof, setCopiedProof] = useState(false);
   const [viewTab, setViewTab] = useState<'narrative' | 'payload' | 'crypto'>('narrative');
 
-  // Find currently selected decision or default to first
   const currentDecision =
     decisions.find((d) => d.id === selectedDecisionId) || decisions[0];
 
@@ -67,7 +66,6 @@ export const DecisionInspector: React.FC<DecisionInspectorProps> = ({
 
   return (
     <div id="decision-inspector-page" className="space-y-6 animate-in fade-in duration-300">
-      {/* Page Header */}
       <div className="bg-white p-6 rounded-3xl shadow-sm border border-emerald-950/5 flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2">
@@ -119,16 +117,13 @@ export const DecisionInspector: React.FC<DecisionInspectorProps> = ({
           </p>
         </div>
       ) : (
-        /* Deep-Dive Split View Layout */
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-        {/* Left Column: Historical Transaction Selector List (4 cols) */}
         <div className="lg:col-span-4 bg-white rounded-3xl p-5 shadow-sm border border-emerald-950/5 flex flex-col h-[820px]">
           <div className="flex items-center justify-between mb-3">
             <h3 className="text-sm font-bold text-slate-900">Historical Decisions</h3>
             <span className="text-xs text-slate-400 font-mono">{filteredList.length} records</span>
           </div>
 
-          {/* Quick Search */}
           <div className="relative mb-3">
             <Search className="absolute left-3 top-2.5 w-3.5 h-3.5 text-slate-400" />
             <input
@@ -140,7 +135,6 @@ export const DecisionInspector: React.FC<DecisionInspectorProps> = ({
             />
           </div>
 
-          {/* Scrollable Decision Cards */}
           <div className="flex-1 overflow-y-auto space-y-2 pr-1">
             {filteredList.map((item) => {
               const isSelected = item.id === currentDecision.id;
@@ -207,9 +201,7 @@ export const DecisionInspector: React.FC<DecisionInspectorProps> = ({
           </div>
         </div>
 
-        {/* Right Column: Complete Underlying Record Inspection (8 cols) */}
         <div className="lg:col-span-8 bg-white rounded-3xl p-6 shadow-sm border border-emerald-950/5 flex flex-col h-[820px] overflow-y-auto">
-          {/* Header Metadata Bar */}
           <div className="p-4 rounded-2xl bg-[#f4f9f7] border border-emerald-900/5 mb-5 flex flex-wrap items-center justify-between gap-3">
             <div className="flex items-center gap-3">
               <span
@@ -246,7 +238,6 @@ export const DecisionInspector: React.FC<DecisionInspectorProps> = ({
             </div>
           </div>
 
-          {/* Inspector View Navigation Tabs */}
           <div className="flex items-center gap-2 border-b border-slate-100 pb-3 mb-5">
             <button
               onClick={() => setViewTab('narrative')}
@@ -283,10 +274,8 @@ export const DecisionInspector: React.FC<DecisionInspectorProps> = ({
             </button>
           </div>
 
-          {/* TAB 1: Plain-Language Narrative & Reasoning Path */}
           {viewTab === 'narrative' && (
             <div className="space-y-6 animate-in fade-in duration-200">
-              {/* Plain-Language Narrative Box */}
               <div
                 className={`p-5 rounded-3xl border shadow-xs ${
                   isAllow
@@ -312,7 +301,6 @@ export const DecisionInspector: React.FC<DecisionInspectorProps> = ({
                   {currentDecision.humanReadableNarrative}
                 </p>
 
-                {/* 3 Quick Takeaways */}
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 pt-4 mt-3 border-t border-black/5 text-xs">
                   <div className="bg-white/90 p-3 rounded-xl border border-black/5 shadow-2xs">
                     <span className="font-bold text-slate-500 uppercase text-[10px] block mb-0.5">
@@ -351,7 +339,6 @@ export const DecisionInspector: React.FC<DecisionInspectorProps> = ({
                 </div>
               </div>
 
-              {/* Step-by-Step Reasoning Path */}
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
                   <div>
@@ -430,10 +417,8 @@ export const DecisionInspector: React.FC<DecisionInspectorProps> = ({
             </div>
           )}
 
-          {/* TAB 2: Input vs. Output Mapping */}
           {viewTab === 'payload' && (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 animate-in fade-in duration-200 flex-1">
-              {/* Left Column: Raw JSON Input Payload */}
               <div className="flex flex-col bg-slate-900 text-slate-200 rounded-2xl p-4 overflow-hidden shadow-inner">
                 <div className="flex items-center justify-between mb-2 pb-2 border-b border-slate-800">
                   <div className="flex items-center gap-1.5 text-xs font-bold text-emerald-400 font-mono">
@@ -463,7 +448,6 @@ export const DecisionInspector: React.FC<DecisionInspectorProps> = ({
                 </pre>
               </div>
 
-              {/* Right Column: Output Risk Score & Policy Flags */}
               <div className="flex flex-col bg-[#f8fbf9] border border-slate-200/80 rounded-2xl p-4 space-y-4">
                 <div className="flex items-center justify-between pb-2 border-b border-slate-200">
                   <div className="flex items-center gap-1.5 text-xs font-bold text-slate-800 font-mono">
@@ -475,7 +459,6 @@ export const DecisionInspector: React.FC<DecisionInspectorProps> = ({
                   </span>
                 </div>
 
-                {/* Risk Score Meter */}
                 <div className="p-3 bg-white rounded-xl border border-slate-200 shadow-xs">
                   <div className="flex items-center justify-between mb-1">
                     <span className="text-xs font-bold text-slate-700">Composite Risk Score</span>
@@ -505,7 +488,6 @@ export const DecisionInspector: React.FC<DecisionInspectorProps> = ({
                   </div>
                 </div>
 
-                {/* Model Confidence */}
                 <div className="p-3 bg-white rounded-xl border border-slate-200 shadow-xs flex items-center justify-between">
                   <span className="text-xs font-bold text-slate-700">Model Confidence</span>
                   <span className="text-sm font-extrabold text-slate-900 font-mono">
@@ -513,7 +495,6 @@ export const DecisionInspector: React.FC<DecisionInspectorProps> = ({
                   </span>
                 </div>
 
-                {/* Policy Flags Evaluated vs Triggered */}
                 <div className="p-3 bg-white rounded-xl border border-slate-200 shadow-xs space-y-2">
                   <span className="text-xs font-bold text-slate-700 block">
                     Policy Flags Triggered ({currentDecision.policiesTriggered.length})
@@ -544,7 +525,6 @@ export const DecisionInspector: React.FC<DecisionInspectorProps> = ({
                   </div>
                 </div>
 
-                {/* Final Enforcement Output */}
                 <div className="p-3 bg-white rounded-xl border border-slate-200 shadow-xs text-xs space-y-1">
                   <div className="flex items-center justify-between">
                     <span className="text-slate-500">Enforcement Action:</span>
@@ -563,7 +543,6 @@ export const DecisionInspector: React.FC<DecisionInspectorProps> = ({
             </div>
           )}
 
-          {/* TAB 3: Cryptographic Block Proof */}
           {viewTab === 'crypto' && (
             <div className="space-y-4 animate-in fade-in duration-200">
               <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-3 font-mono text-xs">
